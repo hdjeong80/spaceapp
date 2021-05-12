@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "317836194588",
+    "project_id": "outerspace-6b889",
+    "storage_bucket": "outerspace-6b889.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:317836194588:android:8ef46f720a68ef4427c0d9",
+        "android_client_info": {
+          "package_name": "com.syskosoft.outerspace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "317836194588-tm05085dram5pfsbtae4oje2pna4bsoh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.syskosoft.outerspace",
+            "certificate_hash": "b094c595eb4d7220b24b4efe3392991ca189e94f"
+          }
+        },
+        {
+          "client_id": "317836194588-m989qg6cjbvqaaifl7g552s5064i8472.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDCu-7jEb9jVNCePCWSI4zGc-umIHeAY0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "317836194588-m989qg6cjbvqaaifl7g552s5064i8472.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
