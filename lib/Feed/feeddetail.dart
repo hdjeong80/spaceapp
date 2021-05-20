@@ -33,7 +33,7 @@ class _DetailState extends State<Detail> {
 //      if(ds!=null){
 //
 //      }
-//    });
+//    });ㅈ
   }
 
   @override
@@ -42,7 +42,7 @@ class _DetailState extends State<Detail> {
       height: 347,
       width: MediaQuery.of(context).size.width,
       child: Carousel(
-        boxFit: BoxFit.fill,
+        boxFit: BoxFit.cover,
         images: links
             .map((item) => Container(
                   child: CachedNetworkImage(
@@ -55,7 +55,7 @@ class _DetailState extends State<Detail> {
                         color: Colors.white,
                         image: DecorationImage(
                           image: imageProvider,
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),

@@ -327,15 +327,25 @@ class _FeedState extends State<Feed> {
                       Padding(
                         padding: const EdgeInsets.only(left: 20),
                         child: Text(
-                          date.toString(),
-                          style: TextStyle(fontSize: 15, fontFamily: font1),
+                          // date.toString(),
+                          '${date.year}년 ${date.month}월 ${date.day}일',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: font1,
+                            color: Color(0xFFF7C7C7C),
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 20),
                         child: Text(
                           language ? '탐험하기 🚀' : 'Explore 🚀',
-                          style: TextStyle(fontSize: 15, fontFamily: font1),
+                          style: TextStyle(
+                            fontSize: 23,
+                            fontFamily: font1,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
@@ -353,14 +363,30 @@ class _FeedState extends State<Feed> {
                               print('helloooo');
                               _launchURL('https://www.google.com/');
                             },
+                            // child: Container(
+                            //   color: Color(0xFFF212F60),
+                            //   child: Center(
+                            //     child: Text('배너'),
+                            //   ),
+                            // ),
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               margin: EdgeInsets.symmetric(horizontal: 3.0),
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(listitem),
-                                  fit: BoxFit.fill,
+                              // color: Color(0xFFF212F60),
+                              child: Center(
+                                child: Text(
+                                  '배너',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
                                 ),
+                              ),
+                              decoration: BoxDecoration(
+                                // image: DecorationImage(
+                                //   image: AssetImage(listitem),
+                                //   fit: BoxFit.fill,
+                                // ),
                                 borderRadius: BorderRadius.circular(15),
                                 color: buttoncolor,
                               ),
@@ -376,7 +402,7 @@ class _FeedState extends State<Feed> {
                   StreamBuilder(
                       stream: instans
                           .collection('Planets')
-                          .where('userid', isNotEqualTo: userFirebaseID)
+                          // .where('userid', isNotEqualTo: userFirebaseID)
                           .snapshots(),
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {

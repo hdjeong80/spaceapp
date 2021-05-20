@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:spaceapp/color.dart';
 import 'package:spaceapp/datafile.dart';
 import 'package:shimmer/shimmer.dart';
@@ -99,7 +100,138 @@ class _ItemlistState extends State<Itemlist> {
         backgroundColor: containercolor,
         elevation: 0.0,
         onPressed: () {
-          Navigator.pushNamed(context, 'Chatdefault');
+          showDialog(
+              context: context,
+              builder: (dialogcontext) {
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                  content: StatefulBuilder(
+                      builder: (BuildContext context, StateSetter setState) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              language ? '아이템 업로드' : 'Upload item',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: font1),
+                            ),
+                            Spacer(),
+                            Container(
+                              height: 36.17,
+                              width: 36.17,
+                              decoration: BoxDecoration(
+                                color: buttoncolor2,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: InkWell(
+                                  onTap: () {
+                                    Navigator.of(dialogcontext).pop();
+                                  },
+                                  child: Icon(Icons.close)),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          language
+                              ? '아이템 업로드를 위해 행성을 선택해주세요.'
+                              : 'Please select a planet to upload items.',
+                          style: TextStyle(fontSize: 15, fontFamily: font1),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(language ? '행성 선택' : 'Planet selection'),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          height: 49.09,
+                          width: MediaQuery.of(context).size.width / 1.2,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: textcolor.withOpacity(0.1),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: DropdownButton(
+                              dropdownColor: Colors.white,
+                              iconSize: 36,
+                              isExpanded: true,
+                              underline: SizedBox(),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                              value: valuechose2,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  for (int i = 0; i < listItem2.length; i++)
+                                    if (listItem2[i] == newValue) {
+                                      choseenindex = i;
+                                      print("index");
+                                      print(listItem2[i]);
+                                      break;
+                                    }
+
+                                  valuechose2 = newValue;
+                                });
+                              },
+                              items: listItem2.map((valueItem) {
+                                return DropdownMenuItem(
+                                  value: valueItem,
+                                  child: Text(valueItem),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Center(
+                          child: Container(
+                            height: 50,
+                            width: MediaQuery.of(context).size.width / 2.5,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: RaisedButton(
+                                child: Text(
+                                  language ? '이미지 추가' : 'To explore',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontFamily: font1),
+                                ),
+                                onPressed: choseenindex == -1
+                                    ? null
+                                    : () {
+                                        Navigator.pop(context);
+                                        print("length of image :: " +
+                                            images.length.toString());
+                                        images = [];
+                                        // Navigator.pushNamed(context, 'Upload');
+
+                                        loadAssets();
+
+                                        // Navigator.pushNamed(context, 'Upload');
+                                      },
+                                color: containercolor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  }),
+                );
+              });
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -284,7 +416,7 @@ class _ItemlistState extends State<Itemlist> {
                           ),
                           RichText(
                             text: TextSpan(
-                                text: language ? '7개' : '7 ',
+                                text: widget.urls.length.toString(),
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -304,9 +436,9 @@ class _ItemlistState extends State<Itemlist> {
                             height: 5,
                           ),
                           Text(
-                            widget.private.toString(),
+                            widget.private ? '비공개' : '공개',
                             style: TextStyle(
-                                color: Colors.black,
+                                color: Color(0xfff7c7c7c),
                                 fontSize: 13,
                                 fontFamily: font1),
                           )
@@ -322,5 +454,41 @@ class _ItemlistState extends State<Itemlist> {
         ),
       ),
     );
+  }
+
+  Future<void> loadAssets() async {
+    print("in function");
+    List<Asset> resultList = <Asset>[];
+    String error = 'No Error Detected';
+
+    try {
+      resultList = await MultiImagePicker.pickImages(
+        maxImages: 5,
+        enableCamera: false,
+        selectedAssets: images,
+        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+        materialOptions: MaterialOptions(
+          lightStatusBar: false,
+          actionBarColor: "#FF6B81",
+          actionBarTitle: "이미지 선택",
+          allViewTitle: "All Photos",
+          useDetailsView: false,
+          selectCircleStrokeColor: "#FF6B81",
+        ),
+      );
+    } on Exception catch (e) {
+      error = e.toString();
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      images = resultList;
+      // _error = error;
+      if (images.length != 0) Navigator.pushNamed(context, 'Upload');
+    });
   }
 }

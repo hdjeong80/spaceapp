@@ -29,7 +29,7 @@ class _DealState extends State<Deal> {
         child: ListView(
           children: [
             SizedBox(
-              height: 70,
+              height: 40,
             ),
             Padding(
               padding: EdgeInsets.only(left: 20),
@@ -50,7 +50,7 @@ class _DealState extends State<Deal> {
             StreamBuilder(
                 stream: instans
                     .collection('Planets')
-                    .where('userid', isNotEqualTo: userFirebaseID)
+                    // .where('userid', isNotEqualTo: userFirebaseID)
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -364,7 +364,7 @@ class _DealState extends State<Deal> {
                                                                                         fontFamily: font1,
                                                                                       ),
                                                                                       children: <TextSpan>[
-                                                                                        TextSpan(text: snapshots1.data.docs[k]['transaction'].toString(), style: TextStyle(fontFamily: font1, fontSize: 16, color: containercolor)),
+                                                                                        TextSpan(text: snapshots1.data.docs[k]['transaction'] ? 'ON' : 'OFF', style: TextStyle(fontFamily: font1, fontSize: 16, color: containercolor)),
                                                                                       ],
                                                                                     ),
                                                                                   ),

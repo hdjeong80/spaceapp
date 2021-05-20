@@ -437,6 +437,7 @@ class _DealdetailState extends State<Dealdetail> {
                                             fontFamily: font1),
                                       ),
                                       onPressed: () {
+                                        Navigator.pop(context);
                                         //    Navigator.pushNamed(context, "Gender");
                                       },
                                       color: modal,
@@ -458,6 +459,7 @@ class _DealdetailState extends State<Dealdetail> {
                                             fontFamily: font1),
                                       ),
                                       onPressed: () {
+                                        Navigator.pop(context);
                                         //    Navigator.pushNamed(context, "Gender");
                                       },
                                       color: containercolor,

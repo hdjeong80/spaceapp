@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:spaceapp/color.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../Galaxy/Itemlist.dart';
 import '../datafile.dart';
 
 class Profile extends StatefulWidget {
@@ -396,12 +397,51 @@ class _ProfileState extends State<Profile> {
                                                                                       style: TextStyle(color: Colors.white, fontSize: 15, fontFamily: font1, fontWeight: FontWeight.bold),
                                                                                       children: <TextSpan>[
                                                                                         TextSpan(text: language ? ' 행성   ' : ' planet   ', style: TextStyle(fontFamily: font1, fontSize: 15, color: Colors.white, fontWeight: FontWeight.w100)),
-                                                                                        TextSpan(text: language ? '1개' : 'One', style: TextStyle(fontFamily: font1, color: Colors.white, fontSize: 15, fontWeight: FontWeight.w100)),
+                                                                                        TextSpan(text: language ? '${snapshot.data.docs.length}개' : 'One', style: TextStyle(fontFamily: font1, color: Colors.white, fontSize: 15, fontWeight: FontWeight.w100)),
                                                                                       ],
                                                                                     ),
                                                                                   ),
-                                                                                  onPressed: () {
-                                                                                    //    Navigator.pushNamed(context, "Gender");
+                                                                                  onPressed: () async {
+                                                                                    List retrievedData;
+                                                                                    List retrievedData1;
+                                                                                    List<String> urls = [];
+                                                                                    List<String> urls1 = [];
+                                                                                    var collectionReferece = await instans.collection('Products').where('categoryID', isEqualTo: snapshot.data.docs[j].id);
+                                                                                    collectionReferece.get().then((collectionSnapshot) async {
+                                                                                      retrievedData = collectionSnapshot.docs.toList();
+                                                                                      // ids= collectionSnapshot.docs.toList();
+                                                                                      print(retrievedData.length);
+                                                                                      for (int x = 0; x < retrievedData.length; x++) {
+                                                                                        var collectionRefereces = await instans.collection('ProductImages').where('ProductID', isEqualTo: collectionSnapshot.docs[x].id);
+
+                                                                                        collectionRefereces.get().then((collectionSnapshots) {
+                                                                                          retrievedData1 = collectionSnapshots.docs.toList();
+                                                                                          //urls.add(retrievedData1[0]['URL'].toString());
+
+                                                                                          urls.add(retrievedData1[0]['URL']);
+                                                                                          if (retrievedData[x]['transaction'] == true) {
+                                                                                            urls1.add(retrievedData1[0]['URL']);
+                                                                                          }
+                                                                                          print(retrievedData1[0]['URL']);
+                                                                                          if (x + 1 == retrievedData.length) {
+                                                                                            Navigator.push(
+                                                                                              context,
+                                                                                              MaterialPageRoute(
+                                                                                                builder: (context) => Itemlist(snapshot.data.docs[j].id, snapshot.data.docs[j]['planetname'], snapshot.data.docs[j]['private'], snapshot.data.docs[j]['selected'], urls, urls1),
+                                                                                              ),
+                                                                                            );
+                                                                                          }
+                                                                                        });
+                                                                                      }
+                                                                                      if (retrievedData.length == 0) {
+                                                                                        Navigator.push(
+                                                                                          context,
+                                                                                          MaterialPageRoute(
+                                                                                            builder: (context) => Itemlist(snapshot.data.docs[j].id, snapshot.data.docs[j]['planetname'], snapshot.data.docs[j]['private'], snapshot.data.docs[j]['selected'], urls, urls1),
+                                                                                          ),
+                                                                                        );
+                                                                                      }
+                                                                                    });
                                                                                   },
                                                                                   color: Colors.black.withOpacity(0.5),
                                                                                 ),
@@ -476,12 +516,51 @@ class _ProfileState extends State<Profile> {
                                                                                       style: TextStyle(color: Colors.white, fontSize: 15, fontFamily: font1, fontWeight: FontWeight.bold),
                                                                                       children: <TextSpan>[
                                                                                         TextSpan(text: language ? ' 행성   ' : ' planet   ', style: TextStyle(fontFamily: font1, fontSize: 15, color: Colors.white, fontWeight: FontWeight.w100)),
-                                                                                        TextSpan(text: language ? '1개' : 'One', style: TextStyle(fontFamily: font1, color: Colors.white, fontSize: 15, fontWeight: FontWeight.w100)),
+                                                                                        TextSpan(text: language ? '${snapshot.data.docs.length}개' : 'One', style: TextStyle(fontFamily: font1, color: Colors.white, fontSize: 15, fontWeight: FontWeight.w100)),
                                                                                       ],
                                                                                     ),
                                                                                   ),
-                                                                                  onPressed: () {
-                                                                                    //    Navigator.pushNamed(context, "Gender");
+                                                                                  onPressed: () async {
+                                                                                    List retrievedData;
+                                                                                    List retrievedData1;
+                                                                                    List<String> urls = [];
+                                                                                    List<String> urls1 = [];
+                                                                                    var collectionReferece = await instans.collection('Products').where('categoryID', isEqualTo: snapshot.data.docs[j].id);
+                                                                                    collectionReferece.get().then((collectionSnapshot) async {
+                                                                                      retrievedData = collectionSnapshot.docs.toList();
+                                                                                      // ids= collectionSnapshot.docs.toList();
+                                                                                      print(retrievedData.length);
+                                                                                      for (int x = 0; x < retrievedData.length; x++) {
+                                                                                        var collectionRefereces = await instans.collection('ProductImages').where('ProductID', isEqualTo: collectionSnapshot.docs[x].id);
+
+                                                                                        collectionRefereces.get().then((collectionSnapshots) {
+                                                                                          retrievedData1 = collectionSnapshots.docs.toList();
+                                                                                          //urls.add(retrievedData1[0]['URL'].toString());
+
+                                                                                          urls.add(retrievedData1[0]['URL']);
+                                                                                          if (retrievedData[x]['transaction'] == true) {
+                                                                                            urls1.add(retrievedData1[0]['URL']);
+                                                                                          }
+                                                                                          print(retrievedData1[0]['URL']);
+                                                                                          if (x + 1 == retrievedData.length) {
+                                                                                            Navigator.push(
+                                                                                              context,
+                                                                                              MaterialPageRoute(
+                                                                                                builder: (context) => Itemlist(snapshot.data.docs[j].id, snapshot.data.docs[j]['planetname'], snapshot.data.docs[j]['private'], snapshot.data.docs[j]['selected'], urls, urls1),
+                                                                                              ),
+                                                                                            );
+                                                                                          }
+                                                                                        });
+                                                                                      }
+                                                                                      if (retrievedData.length == 0) {
+                                                                                        Navigator.push(
+                                                                                          context,
+                                                                                          MaterialPageRoute(
+                                                                                            builder: (context) => Itemlist(snapshot.data.docs[j].id, snapshot.data.docs[j]['planetname'], snapshot.data.docs[j]['private'], snapshot.data.docs[j]['selected'], urls, urls1),
+                                                                                          ),
+                                                                                        );
+                                                                                      }
+                                                                                    });
                                                                                   },
                                                                                   color: Colors.black.withOpacity(0.5),
                                                                                 ),
@@ -593,14 +672,71 @@ class _ProfileState extends State<Profile> {
                                                                                 text: language ? ' 행성   ' : ' planet   ',
                                                                                 style: TextStyle(fontFamily: font1, fontSize: 15, color: Colors.white, fontWeight: FontWeight.w100)),
                                                                             TextSpan(
-                                                                                text: language ? '1개' : 'One',
+                                                                                text: language ? '${snapshot.data.docs.length}개' : 'One',
                                                                                 style: TextStyle(fontFamily: font1, color: Colors.white, fontSize: 15, fontWeight: FontWeight.w100)),
                                                                           ],
                                                                         ),
                                                                       ),
                                                                       onPressed:
-                                                                          () {
-                                                                        //    Navigator.pushNamed(context, "Gender");
+                                                                          () async {
+                                                                        List
+                                                                            retrievedData;
+                                                                        List
+                                                                            retrievedData1;
+                                                                        List<String>
+                                                                            urls =
+                                                                            [];
+                                                                        List<String>
+                                                                            urls1 =
+                                                                            [];
+                                                                        var collectionReferece = await instans.collection('Products').where(
+                                                                            'categoryID',
+                                                                            isEqualTo:
+                                                                                snapshot.data.docs[j].id);
+                                                                        collectionReferece
+                                                                            .get()
+                                                                            .then((collectionSnapshot) async {
+                                                                          retrievedData = collectionSnapshot
+                                                                              .docs
+                                                                              .toList();
+                                                                          // ids= collectionSnapshot.docs.toList();
+                                                                          print(
+                                                                              retrievedData.length);
+                                                                          for (int x = 0;
+                                                                              x < retrievedData.length;
+                                                                              x++) {
+                                                                            var collectionRefereces =
+                                                                                await instans.collection('ProductImages').where('ProductID', isEqualTo: collectionSnapshot.docs[x].id);
+
+                                                                            collectionRefereces.get().then((collectionSnapshots) {
+                                                                              retrievedData1 = collectionSnapshots.docs.toList();
+                                                                              //urls.add(retrievedData1[0]['URL'].toString());
+
+                                                                              urls.add(retrievedData1[0]['URL']);
+                                                                              if (retrievedData[x]['transaction'] == true) {
+                                                                                urls1.add(retrievedData1[0]['URL']);
+                                                                              }
+                                                                              print(retrievedData1[0]['URL']);
+                                                                              if (x + 1 == retrievedData.length) {
+                                                                                Navigator.push(
+                                                                                  context,
+                                                                                  MaterialPageRoute(
+                                                                                    builder: (context) => Itemlist(snapshot.data.docs[j].id, snapshot.data.docs[j]['planetname'], snapshot.data.docs[j]['private'], snapshot.data.docs[j]['selected'], urls, urls1),
+                                                                                  ),
+                                                                                );
+                                                                              }
+                                                                            });
+                                                                          }
+                                                                          if (retrievedData.length ==
+                                                                              0) {
+                                                                            Navigator.push(
+                                                                              context,
+                                                                              MaterialPageRoute(
+                                                                                builder: (context) => Itemlist(snapshot.data.docs[j].id, snapshot.data.docs[j]['planetname'], snapshot.data.docs[j]['private'], snapshot.data.docs[j]['selected'], urls, urls1),
+                                                                              ),
+                                                                            );
+                                                                          }
+                                                                        });
                                                                       },
                                                                       color: Colors
                                                                           .black

@@ -286,7 +286,11 @@ class _DefaultState extends State<Default> {
                                                                               ? "확인"
                                                                               : "Yes"),
                                                                           onPressed:
-                                                                              () {
+                                                                              () async {
+                                                                            String
+                                                                                id =
+                                                                                snapshot.data.docs[i].id;
+                                                                            await FirebaseFirestore.instance.collection('Planets').doc(id).delete();
                                                                             Navigator.pop(context);
                                                                           },
                                                                         ),
@@ -364,7 +368,7 @@ class _DefaultState extends State<Default> {
                                                                       .docs
                                                                       .length
                                                                       .toString() +
-                                                                  " things",
+                                                                  "개",
                                                               style: TextStyle(
                                                                   fontFamily:
                                                                       font1,
@@ -535,7 +539,9 @@ class _DefaultState extends State<Default> {
                                                                               CupertinoDialogAction(
                                                                                 isDefaultAction: true,
                                                                                 child: Text(language ? "확인" : "Yes"),
-                                                                                onPressed: () {
+                                                                                onPressed: () async {
+                                                                                  String id = snapshot.data.docs[i].id;
+                                                                                  await FirebaseFirestore.instance.collection('Planets').doc(id).delete();
                                                                                   Navigator.pop(context);
                                                                                 },
                                                                               ),
@@ -614,7 +620,7 @@ class _DefaultState extends State<Default> {
                                                                             .docs
                                                                             .length
                                                                             .toString() +
-                                                                        " things",
+                                                                        "개",
                                                                     style: TextStyle(
                                                                         fontFamily:
                                                                             font1,
@@ -1134,7 +1140,9 @@ class _DefaultState extends State<Default> {
                                                                             CupertinoDialogAction(
                                                                               isDefaultAction: true,
                                                                               child: Text(language ? "확인" : "Yes"),
-                                                                              onPressed: () {
+                                                                              onPressed: () async {
+                                                                                String id = snapshot.data.docs[i].id;
+                                                                                await FirebaseFirestore.instance.collection('Planets').doc(id).delete();
                                                                                 Navigator.pop(context);
                                                                               },
                                                                             ),
@@ -1215,7 +1223,7 @@ class _DefaultState extends State<Default> {
                                                                           .docs
                                                                           .length
                                                                           .toString() +
-                                                                      " things",
+                                                                      "개",
                                                                   style: TextStyle(
                                                                       fontFamily:
                                                                           font1,
@@ -1346,7 +1354,14 @@ class _DefaultState extends State<Default> {
                                                                             .push(
                                                                           context,
                                                                           MaterialPageRoute(
-                                                                              builder: (context) => Itemlist(snapshot.data.docs[i + 1].id, snapshot.data.docs[i + 1]['planetname'], snapshot.data.docs[i + 1]['private'], snapshot.data.docs[i + 1]['selected'], urls, urls1)),
+                                                                            builder: (context) => Itemlist(
+                                                                                snapshot.data.docs[i + 1].id,
+                                                                                snapshot.data.docs[i + 1]['planetname'],
+                                                                                snapshot.data.docs[i + 1]['private'],
+                                                                                snapshot.data.docs[i + 1]['selected'],
+                                                                                urls,
+                                                                                urls1),
+                                                                          ),
                                                                         );
                                                                       }
                                                                     });
@@ -1393,7 +1408,9 @@ class _DefaultState extends State<Default> {
                                                                             CupertinoDialogAction(
                                                                               isDefaultAction: true,
                                                                               child: Text(language ? "확인" : "Yes"),
-                                                                              onPressed: () {
+                                                                              onPressed: () async {
+                                                                                String id = snapshot.data.docs[i].id;
+                                                                                await FirebaseFirestore.instance.collection('Planets').doc(id).delete();
                                                                                 Navigator.pop(context);
                                                                               },
                                                                             ),
@@ -1474,7 +1491,7 @@ class _DefaultState extends State<Default> {
                                                                           .docs
                                                                           .length
                                                                           .toString() +
-                                                                      " things",
+                                                                      "개",
                                                                   style: TextStyle(
                                                                       fontFamily:
                                                                           font1,

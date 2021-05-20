@@ -141,7 +141,7 @@ class _Signin1State extends State<Signin1> {
                     Padding(
                       padding: const EdgeInsets.only(left: 20, right: 20),
                       child: TextFormField(
-                        maxLength: 10,
+                        maxLength: 11,
                         keyboardType: TextInputType.number,
                         controller: _phoneNumberController,
                         decoration: InputDecoration(
@@ -163,7 +163,7 @@ class _Signin1State extends State<Signin1> {
                                 ? null
                                 : () async {
                                     if (_phoneNumberController.text.length ==
-                                        10) {
+                                        11) {
                                       setState(() {
                                         getcodebutton = true;
                                       });
@@ -172,7 +172,8 @@ class _Signin1State extends State<Signin1> {
                                           .collection('Users')
                                           .where('phone',
                                               isEqualTo: prephone +
-                                                  _phoneNumberController.text)
+                                                  _phoneNumberController.text
+                                                      .substring(1))
                                           .get()
                                           .then((QuerySnapshot querydata) {
                                         if (querydata.docs.isNotEmpty) {
@@ -181,7 +182,7 @@ class _Signin1State extends State<Signin1> {
                                         } else {
                                           verifyPhoneNumber();
                                           Future.delayed(
-                                              Duration(milliseconds: 10000),
+                                              Duration(milliseconds: 60000),
                                               () {
                                             setState(() {
                                               print('in time');
@@ -300,7 +301,7 @@ class _Signin1State extends State<Signin1> {
                                 showSnackbar(
                                     "Please get verification code first");
                               } else if (_phoneNumberController.text.length ==
-                                      10 &&
+                                      11 &&
                                   _smsController.text.length == 6) {
                                 setState(() {
                                   buttonsignup = true;
@@ -309,7 +310,8 @@ class _Signin1State extends State<Signin1> {
                                     .collection('Users')
                                     .where('phone',
                                         isEqualTo: prephone +
-                                            _phoneNumberController.text)
+                                            _phoneNumberController.text
+                                                .substring(1))
                                     .get()
                                     .then((QuerySnapshot querydata) {
                                   if (querydata.docs.isNotEmpty) {
@@ -351,7 +353,7 @@ class _Signin1State extends State<Signin1> {
       await _auth.signInWithCredential(phoneAuthCredential);
       UserUUID = _auth.currentUser.uid;
       userFirebaseID = _auth.currentUser.uid;
-      phone = _phoneNumberController.text;
+      phone = _phoneNumberController.text.substring(1);
       Navigator.pushNamed(context, "Signin2");
       showSnackbar(
           "Phone number automatically verified and user signed in: ${_auth.currentUser.uid}");
@@ -374,8 +376,8 @@ class _Signin1State extends State<Signin1> {
     };
     try {
       await _auth.verifyPhoneNumber(
-          phoneNumber: prephone + _phoneNumberController.text,
-          timeout: const Duration(seconds: 5),
+          phoneNumber: prephone + _phoneNumberController.text.substring(1),
+          timeout: const Duration(seconds: 60),
           verificationCompleted: verificationCompleted,
           verificationFailed: verificationFailed,
           codeSent: codeSent,
@@ -396,7 +398,7 @@ class _Signin1State extends State<Signin1> {
       UserUUID = user.uid;
       showSnackbar("Successfully signed in UID: ${user.uid}");
       userFirebaseID = user.uid;
-      phone = _phoneNumberController.text;
+      phone = _phoneNumberController.text.substring(1);
       Navigator.pushNamed(context, "Signin2");
     } catch (e) {
       showSnackbar("Failed to sign in: " + e.toString());

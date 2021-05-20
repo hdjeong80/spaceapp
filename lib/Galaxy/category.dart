@@ -115,8 +115,17 @@ class _CategoryState extends State<Category> {
                     Container(
                       child: Flexible(
                         child: TextField(
+                          onChanged: (_) {
+                            setState(() {
+                              if (_.isEmpty)
+                                input = 1;
+                              else
+                                input = 0;
+                            });
+                          },
                           controller: Controllerinput,
                           textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
                         ),
                       ), //flexible
                     ), //container
@@ -163,6 +172,14 @@ class _CategoryState extends State<Category> {
                     Container(
                       child: Flexible(
                         child: TextField(
+                          onChanged: (_) {
+                            setState(() {
+                              if (_.isEmpty)
+                                input1 = 1;
+                              else
+                                input1 = 0;
+                            });
+                          },
                           textAlign: TextAlign.center,
                           controller: Controllerinput1,
                         ),
@@ -211,6 +228,15 @@ class _CategoryState extends State<Category> {
                     Container(
                       child: Flexible(
                         child: TextField(
+                          onChanged: (_) {
+                            setState(() {
+                              if (_.isEmpty)
+                                input2 = 1;
+                              else
+                                input2 = 0;
+                            });
+                          },
+                          keyboardType: TextInputType.number,
                           textAlign: TextAlign.center,
                           controller: Controllerinput2,
                           decoration: InputDecoration(
@@ -263,6 +289,14 @@ class _CategoryState extends State<Category> {
                     Container(
                       child: Flexible(
                         child: TextField(
+                          onChanged: (_) {
+                            setState(() {
+                              if (_.isEmpty)
+                                input3 = 1;
+                              else
+                                input3 = 0;
+                            });
+                          },
                           controller: Controllerinput3,
                           textAlign: TextAlign.center,
                           decoration: InputDecoration(
@@ -315,6 +349,14 @@ class _CategoryState extends State<Category> {
                     Container(
                       child: Flexible(
                         child: TextField(
+                          onChanged: (_) {
+                            setState(() {
+                              if (_.isEmpty)
+                                input4 = 1;
+                              else
+                                input4 = 0;
+                            });
+                          },
                           controller: Controllerinput4,
                           textAlign: TextAlign.center,
                         ),
@@ -363,6 +405,14 @@ class _CategoryState extends State<Category> {
                     Container(
                       child: Flexible(
                         child: TextField(
+                          onChanged: (_) {
+                            setState(() {
+                              if (_.isEmpty)
+                                input5 = 1;
+                              else
+                                input5 = 0;
+                            });
+                          },
                           controller: Controllerinput5,
                           textAlign: TextAlign.center,
                         ),
@@ -411,6 +461,14 @@ class _CategoryState extends State<Category> {
                     Container(
                       child: Flexible(
                         child: TextField(
+                          onChanged: (_) {
+                            setState(() {
+                              if (_.isEmpty)
+                                input6 = 1;
+                              else
+                                input6 = 0;
+                            });
+                          },
                           textAlign: TextAlign.center,
                           controller: Controllerinput6,
                           decoration: InputDecoration(
@@ -463,6 +521,14 @@ class _CategoryState extends State<Category> {
                     Container(
                       child: Flexible(
                         child: TextField(
+                          onChanged: (_) {
+                            setState(() {
+                              if (_.isEmpty)
+                                input7 = 1;
+                              else
+                                input7 = 0;
+                            });
+                          },
                           textAlign: TextAlign.center,
                           controller: Controllerinput7,
                           decoration: InputDecoration(
